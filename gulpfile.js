@@ -50,7 +50,6 @@ gulp.task('concat', function () {
 });
 
 gulp.task('sass', function () {
-  console.log('run build sass files!')
   return gulp.src(paths.origin.styles)
     .pipe(sass())
     .pipe(concat('app.css'))
@@ -62,24 +61,18 @@ gulp.task('sass', function () {
     .pipe(livereload());
 });
 
-gulp.task('script', function () {
+gulp.task('transScript', function () {
   return gulp.src(paths.origin.scripts)
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest(paths.tmp_root + '/assets/js'))
-    .pipe(assetRev())
-    .pipe(uglify())
-    .pipe(rename({
-      extname: '.min.js'
-    }))
-    .pipe(gulp.dest(paths.tmp_root + '/assets/js'))
-    .pipe(livereload());
-});
-
-gulp.task('scriptFile', function () {
-  return gulp.src(paths.origin.script)
-    .pipe(gulp.dest(paths.tmp_root + '/assets/js'))
+    .pipe(gulp.dest(paths.tmp_root + '/'))
     .pipe(livereload());
 })
+gulp.task('transComponent', function () {
+  return gulp.src(paths.origin.components)
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.tmp_root + '/components'))
+    .pipe(livereload());
+})
+
 
 gulp.task('images', function () {
   return gulp.src(paths.origin.images)
@@ -89,7 +82,7 @@ gulp.task('images', function () {
 });
 
 
-gulp.task('connect', ['concat', 'sass', 'images', 'scriptFile'], function () {
+gulp.task('connect', ['concat', 'sass', 'images', 'transScript', 'transComponent'], function () {
   connect.server({
     livereload: true,
     root: paths.tmp_root,
@@ -102,8 +95,8 @@ gulp.task('connect', ['concat', 'sass', 'images', 'scriptFile'], function () {
 gulp.task('watch', function () {
   gulp.watch(paths.origin.page, ['concat']);
   gulp.watch(paths.origin.styles, ['sass']);
-  // gulp.watch(paths.origin.scripts, ['script']);
-  gulp.watch(paths.origin.script, ['scriptFile']);
+  gulp.watch(paths.origin.scripts, ['transScript']);
+  gulp.watch(paths.origin.components, ['transComponent']);
   livereload.listen();
 });
 
