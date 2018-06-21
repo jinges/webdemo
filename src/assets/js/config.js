@@ -2,7 +2,7 @@
  * @Author: 大明冯 
  * @Date: 2018-06-21 10:25:44 
  * @Last Modified by: 大明冯
- * @Last Modified time: 2018-06-21 14:17:49
+ * @Last Modified time: 2018-06-21 17:21:07
  */
 
 require.config({
@@ -15,6 +15,9 @@ require.config({
     configer: '/assets/js/common/configer',
     hbars: '/assets/js/libs/hbars',
     text: '/assets/js/libs/text',
+    underscore: '/assets/js/libs/underscore-min',
+    route: '/assets/js/unit/route',
+    filter: '/assets/js/unit/filter',
     alert: 'alert/controller'
   },
   shim: {

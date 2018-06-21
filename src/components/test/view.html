@@ -3,5 +3,13 @@
   <div class="body">
     {{body}}
   </div>
+<p>brandId: {{brandId}}</p>
+<div>
+<p>*********以下是子组件渲染的内容*******</p>
+ {{#children comments}}
+ {{@index}}
+ {{/children}}
+ <p>**************</p>
+</div>
   <button id="btn">btn Test </button>
 </div>
